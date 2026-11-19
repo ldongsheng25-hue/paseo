@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "repository": "https://github.com/ldongsheng25-hue/paseo",
+  "skill": "paseo-project-check",
+  "mcp": "paseo_local_demo",
+  "plugin": "paseo-local-extensions"
+}

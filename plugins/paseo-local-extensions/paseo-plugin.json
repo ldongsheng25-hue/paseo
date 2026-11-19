@@ -1,0 +1,6 @@
+{
+  "id": "paseo-local-extensions",
+  "name": "Paseo Local Extensions",
+  "description": "Manage local skills and Codex MCP servers",
+  "requirements": { "paseo": "^0.16.0" }
+}
