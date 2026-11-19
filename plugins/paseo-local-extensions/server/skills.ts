@@ -32,7 +32,7 @@ async function sampleStatus(): Promise<"available" | "installed" | "external"> {
   return (await readFile(file, "utf8")) === skillBody ? "installed" : "external";
 }
 
-async function description(file: string): Promise<string | null> {
+async function readSkillHeader(file: string) {
   const stat = await lstat(file).catch(() => null);
   if (!stat?.isFile()) return null;
   const contents = Buffer.alloc(8192);
@@ -42,13 +42,21 @@ async function description(file: string): Promise<string | null> {
     const header = contents
       .toString("utf8", 0, bytesRead)
       .match(/^\uFEFF?---\r?\n([\s\S]*?)\r?\n---\s*$/m)?.[1];
-    return (
+    const description =
       header
-        ?.match(/^description:\s*(.*)$/m)?.[1]
+        ?.match(/^description:[ \t]*(.*)$/m)?.[1]
         ?.trim()
         .replace(/^["']|["']$/g, "")
-        .slice(0, 220) ?? ""
-    );
+        .slice(0, 220) ?? "";
+    const requirements =
+      header?.match(/^[ \t]+requires:[ \t]*\r?\n((?:[ \t]+(?:bins|skills):[^\n]*\n?)+)/m)?.[1] ??
+      "";
+    const dependencies = Array.from(requirements.matchAll(/(?:bins|skills):[ \t]*\[([^\]]*)\]/g))
+      .flatMap((match) => (match[1] ?? "").split(","))
+      .map((item) => item.trim().replace(/^["']|["']$/g, ""))
+      .filter((item) => /^[a-zA-Z0-9_.-]{1,80}$/.test(item))
+      .slice(0, 20);
+    return { description, dependencies };
   } finally {
     await handle.close();
   }
@@ -67,9 +75,9 @@ export async function scanLocalSkills() {
       .filter((entry) => entry.isDirectory())
       .sort((a, b) => a.name.localeCompare(b.name))) {
       const file = path.join(root.path, dir.name, "SKILL.md");
-      const hint = await description(file).catch(() => null);
-      if (hint !== null)
-        skills.push({ name: dir.name, path: file, location: root.location, description: hint });
+      const metadata = await readSkillHeader(file).catch(() => null);
+      if (metadata)
+        skills.push({ name: dir.name, path: file, location: root.location, ...metadata });
     }
   }
   return { skills, sample: await sampleStatus() };

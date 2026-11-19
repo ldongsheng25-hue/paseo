@@ -94,7 +94,7 @@ function SkillsPanel() {
           <SettingsRow
             label={skill.name}
             key={skill.path}
-            hint={`${skill.path}${skill.description ? `\n${skill.description}` : ""}`}
+            hint={`${skill.path}${skill.description ? `\n${skill.description}` : ""}${skill.dependencies.length ? `\n依赖：${skill.dependencies.join("、")}` : ""}`}
           />
         ))}
       </SettingsCard>

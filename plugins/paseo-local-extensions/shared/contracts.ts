@@ -37,6 +37,7 @@ const skillSchema = z.object({
   path: z.string(),
   location: z.string(),
   description: z.string(),
+  dependencies: z.array(z.string()),
 });
 
 export const listSkills = defineRpc({
