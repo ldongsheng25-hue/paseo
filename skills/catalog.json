@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "release": "1.0.0",
+  "skills": [
+    {
+      "id": "chrome-devtools",
+      "title": "Chrome DevTools Skill",
+      "description": "使用 Chrome DevTools MCP 查看页面快照、截图、控制台和网络请求。",
+      "version": "1.0.0",
+      "revision": "f65489c0c38110455227a93a98fb50f791ca4042",
+      "files": ["SKILL.md"],
+      "requiresMcp": ["chrome_devtools"]
+    }
+  ]
+}
