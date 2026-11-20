@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "release": "1.0.0",
+  "release": "1.1.0",
   "servers": [
     {
       "id": "chrome_devtools",
@@ -11,7 +11,27 @@
       "bin": "chrome-devtools-mcp",
       "version": "1.13.0",
       "revision": "f65489c0c38110455227a93a98fb50f791ca4042",
-      "args": ["--isolated", "--no-usage-statistics", "--no-performance-crux"]
+      "args": [
+        "--isolated",
+        "--no-usage-statistics",
+        "--no-performance-crux"
+      ]
+    },
+    {
+      "id": "playwright",
+      "title": "Playwright MCP",
+      "description": "使用本机 Microsoft Edge 在后台打开网页、操作表单和截取页面。各会话使用独立浏览器配置。",
+      "recipe": "playwright",
+      "package": "@playwright/mcp",
+      "bin": "playwright-mcp",
+      "version": "0.0.85",
+      "revision": "0da39941bff1100e79a8f1485af066f93b726c07",
+      "args": [
+        "--browser",
+        "msedge",
+        "--isolated",
+        "--headless"
+      ]
     }
   ]
 }
