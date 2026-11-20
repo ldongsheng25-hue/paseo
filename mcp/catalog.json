@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "release": "1.0.0",
+  "servers": [
+    {
+      "id": "chrome_devtools",
+      "title": "Chrome DevTools",
+      "description": "使用独立 Chrome 会话检查网页、控制台、网络请求和截图。",
+      "recipe": "chrome-devtools",
+      "package": "chrome-devtools-mcp",
+      "bin": "chrome-devtools-mcp",
+      "version": "1.13.0",
+      "revision": "f65489c0c38110455227a93a98fb50f791ca4042",
+      "args": ["--isolated", "--no-usage-statistics", "--no-performance-crux"]
+    }
+  ]
+}
